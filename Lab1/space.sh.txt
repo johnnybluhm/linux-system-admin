@@ -1,12 +1,13 @@
 #!/bin/bash
-
+#default value of threshold
 threshold=80
-if(agrc==1)
+#user can change threshold value at cmd line
+if(($#==1))
 then
         threshold=$1
 fi
-echo space utilization
-echo threshold % is $threshold
+echo
+echo threshold % is ${threshold}%
 
 #get % utilized of both drives
 
@@ -15,9 +16,10 @@ boot_util=$(echo `df /boot | awk '{print $5}' | grep '[0-9][0-9]'`)
 #get rid of % sign at end of string
 root_util=${root_util:0:2}
 boot_util=${boot_util:0:2}
-echo utilization of / is $root_util
-echo util of /boot is $boot_util
+echo utilization of / is ${root_util}%
+echo util of /boot is ${boot_util}%
 
+#compare threshold to utilized
 if((${root_util}>${threshold}))
 then
         mail -s "STORAGE WARNING" root@localhost <<< "/ is above 80% utilization"
