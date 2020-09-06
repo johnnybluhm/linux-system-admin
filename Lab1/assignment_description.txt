@@ -1,0 +1,62 @@
+Summary:
+
+The only Linux system administrator at Dunder Mifflin recently quit on very short notice.  ‘Management’ has chosen you to temporarily fill the role because you are the only one (of our valued employees) with any Linux experience.
+
+You’ve been informed that your new position starts on Tuesday, and that there is no funding for additional training prior to assuming the role.  A few buddies have suggested starting out by writing two basic bash scripts to gain experience with the command line. 
+
+These scripts are easy to describe and harder to implement.  Essentially, you’ll create two different bash scripts to do the following:
+
+Monitor the space utilization of the / and /boot filesystems as indicated by the df command, and send an e-mail to the root account using the mail program when either exceeds a specified threshold (80% is reasonable.)
+Display a system dashboard to give a brief overview of the current state of the system from a few different perspectives: CPU/RAM, network, user accounts and number of files/directories. 
+Programs you’ll find useful are: free, uptime (load average indicates CPU utilization), cat /proc/net/dev, cat /etc/passwd, and ping. 
+
+Please note that the 1-byte return status, or code, of a command usually indicates success or failure of that command.  bash makes that available in $?.  A sample output of the dashboard appears below.
+
+You must at a minimum implement the features shown in the sample output below:
+
+[root@localhost: ~] # ./dashboard.sh
+CPU AND MEMORY RESOURCES --------------------------------
+
+CPU Load Average: 0.01, 0.01, 0.00       Free RAM: 412 MB
+
+
+NETWORK CONNECTIONS -------------------------------------
+
+lo Bytes Received: 0      Bytes Transmitted: 0
+
+enp0s3 Bytes Received: 21632         Bytes Transmitted: 10674
+
+Internet Connectivity: Yes
+
+
+ACCOUNT INFORMATION -------------------------------------
+
+Total Users:    19        Number Active: 1
+
+Shells:
+
+/sbin/nologin:  12
+
+/bin/bash: 3
+
+/bin/false: 1
+
+
+FILESYSTEM INFORMATION ----------------------------------
+
+Total Number of Files: 6789
+
+Total Number of Directories: 345
+A few helpful hints are:
+Sometimes you must ‘escape’ characters that have special meaning to bash (e.g. | )
+Some commands have very helpful formatting flags (e.g. -e or -n with echo). 
+If you are sure that you sent mail to the local root account but it never arrives in /var/mail/root, make sure that the postfix daemon is running.
+Prerequisites
+Please finish the first two reading assignments before starting the lab.  You will also need to install some software on your machine.  Run the following command to ensure that you have the necessary packages before proceeding:
+
+# yum install mailx
+Submission Requirements
+Make sure you submit the scripts for this lab as separate .sh files, named dashboard.sh and space.sh
+The dashboard script, at a minimum, should have all the items in the output listed above.  The formatting need not be exactly the same.  You must extract and display the required portions of text from the commands, not simply display the output of the commands.
+The disk utilization monitoring script should send an e-mail when the disk space of either partition exceeds a percentage defined by a variable in the script (parameterize!).
+Scripts must work with the version of bash included in CentOS 7.x.
